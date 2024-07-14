@@ -1,20 +1,22 @@
+import 'package:calculator/pages/body_page.dart';
 import 'package:flutter/material.dart';
 
-class HomePage extends StatefulWidget {
+class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  @override
-  State<HomePage> createState() => _HomePageState();
-}
-
-class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
-        title: const Center(child: Text("Test")),
+        backgroundColor: Colors.black,
+        title: const Center(
+          child: Text(
+            "Calculator",
+            style: TextStyle(fontSize: 26, color: Colors.white),
+          ),
+        ),
       ),
+      body: const BodyPage(),
     );
   }
 }
