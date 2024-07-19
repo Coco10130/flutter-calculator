@@ -9,18 +9,17 @@ class BodyPage extends StatefulWidget {
 }
 
 class _BodyPageState extends State<BodyPage> {
-  final firstController = TextEditingController();
-  final secondController = TextEditingController();
+  final num1Controller = TextEditingController();
+  final num2Controller = TextEditingController();
 
-  Widget _input(String hint, TextEditingController controller) {
+  Widget _input(String text, TextEditingController controller) {
     return TextField(
       decoration: InputDecoration(
-        border: const OutlineInputBorder(),
-        labelText: hint,
-        labelStyle: TextStyle(color: Colors.grey[300]),
+        border: const UnderlineInputBorder(),
+        labelText: text,
+        labelStyle: const TextStyle(color: Colors.black54),
       ),
-      style: const TextStyle(color: Colors.white),
-      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      style: const TextStyle(color: Colors.black),
       controller: controller,
     );
   }
@@ -28,16 +27,9 @@ class _BodyPageState extends State<BodyPage> {
   double result = 0;
 
   @override
-  void dispose() {
-    firstController.dispose();
-    secondController.dispose();
-    super.dispose();
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.black87,
+      backgroundColor: Colors.white,
       resizeToAvoidBottomInset: true,
       body: SingleChildScrollView(
         child: Padding(
@@ -48,7 +40,7 @@ class _BodyPageState extends State<BodyPage> {
               Center(
                 child: Text(
                   "$result",
-                  style: const TextStyle(fontSize: 30, color: Colors.white),
+                  style: const TextStyle(fontSize: 30, color: Colors.black),
                 ),
               ),
 
@@ -58,7 +50,7 @@ class _BodyPageState extends State<BodyPage> {
               ),
 
               // text input 1
-              _input("Num 1", firstController),
+              _input("Num 1", num1Controller),
 
               // spacing
               const SizedBox(
@@ -66,7 +58,7 @@ class _BodyPageState extends State<BodyPage> {
               ),
 
               // text input 2
-              _input("Num 2", secondController),
+              _input("Num 2", num2Controller),
 
               // spacing
               const SizedBox(
@@ -77,7 +69,22 @@ class _BodyPageState extends State<BodyPage> {
               MyButton(
                 name: "addition",
                 onTap: () {
-                  add(firstController.text, secondController.text);
+                  String text1 = num1Controller.text;
+                  String text2 = num2Controller.text;
+
+                  if (parseDouble(text1) && parseDouble(text2)) {
+                    double num1 = double.parse(text1);
+                    double num2 = double.parse(text2);
+
+                    setState(() {
+                      result = num1 + num2;
+                    });
+
+                    num1Controller.clear();
+                    num2Controller.clear();
+                  } else {
+                    mySnackBar("Invalid Input");
+                  }
                 },
               ),
 
@@ -85,98 +92,77 @@ class _BodyPageState extends State<BodyPage> {
               MyButton(
                   name: "subtraction",
                   onTap: () {
-                    subtract(firstController.text, secondController.text);
+                    String text1 = num1Controller.text;
+                    String text2 = num2Controller.text;
+
+                    if (parseDouble(text1) && parseDouble(text2)) {
+                      double num1 = double.parse(text1);
+                      double num2 = double.parse(text2);
+
+                      setState(() {
+                        result = num1 - num2;
+                      });
+
+                      num1Controller.clear();
+                      num2Controller.clear();
+                    } else {
+                      mySnackBar("Invalid Input");
+                    }
                   }),
 
               // multiply button
               MyButton(
                   name: "multiplication",
                   onTap: () {
-                    multiply(firstController.text, secondController.text);
+                    String text1 = num1Controller.text;
+                    String text2 = num2Controller.text;
+
+                    if (parseDouble(text1) && parseDouble(text2)) {
+                      double num1 = double.parse(text1);
+                      double num2 = double.parse(text2);
+
+                      setState(() {
+                        result = num1 * num2;
+                      });
+
+                      num1Controller.clear();
+                      num2Controller.clear();
+                    } else {
+                      mySnackBar("Invalid Input");
+                    }
                   }),
 
               // divide button
               MyButton(
                   name: "division",
                   onTap: () {
-                    divide(firstController.text, secondController.text);
+                    String text1 = num1Controller.text;
+                    String text2 = num2Controller.text;
+
+                    if (parseDouble(text1) && parseDouble(text2)) {
+                      double num1 = double.parse(text1);
+                      double num2 = double.parse(text2);
+
+                      if (num2 == 0) {
+                        mySnackBar("Cannot divide by zero");
+                        return;
+                      }
+
+                      setState(() {
+                        result = num1 / num2;
+                      });
+
+                      num1Controller.clear();
+                      num2Controller.clear();
+                    } else {
+                      mySnackBar("Invalid Input");
+                    }
                   }),
             ],
           ),
         ),
       ),
     );
-  }
-
-  // button functions
-
-  void add(String text1, String text2) {
-    if (parseDouble(text1) && parseDouble(text2)) {
-      double num1 = double.parse(text1);
-      double num2 = double.parse(text2);
-
-      setState(() {
-        result = num1 + num2;
-      });
-
-      firstController.clear();
-      secondController.clear();
-    } else {
-      mySnackBar("Invalid Input");
-    }
-  }
-
-  void subtract(String text1, String text2) {
-    if (parseDouble(text1) && parseDouble(text2)) {
-      double num1 = double.parse(text1);
-      double num2 = double.parse(text2);
-
-      setState(() {
-        result = num1 - num2;
-      });
-
-      firstController.clear();
-      secondController.clear();
-    } else {
-      mySnackBar("Invalid Input");
-    }
-  }
-
-  void multiply(String text1, String text2) {
-    if (parseDouble(text1) && parseDouble(text2)) {
-      double num1 = double.parse(text1);
-      double num2 = double.parse(text2);
-
-      setState(() {
-        result = num1 * num2;
-      });
-
-      firstController.clear();
-      secondController.clear();
-    } else {
-      mySnackBar("Invalid Input");
-    }
-  }
-
-  void divide(String text1, String text2) {
-    if (parseDouble(text1) && parseDouble(text2)) {
-      double num1 = double.parse(text1);
-      double num2 = double.parse(text2);
-
-      if (num2 == 0) {
-        mySnackBar("Cannot divide by zero");
-        return;
-      }
-
-      setState(() {
-        result = num1 / num2;
-      });
-
-      firstController.clear();
-      secondController.clear();
-    } else {
-      mySnackBar("Invalid Input");
-    }
   }
 
   // utilities

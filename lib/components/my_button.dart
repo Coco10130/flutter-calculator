@@ -9,14 +9,13 @@ class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
       child: SizedBox(
         width: double.infinity,
         height: 50,
         child: ElevatedButton(
           onPressed: onTap,
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.grey[300],
             elevation: 20,
             textStyle: const TextStyle(fontSize: 20),
             foregroundColor: Colors.black87,
