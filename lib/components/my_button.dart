@@ -9,18 +9,21 @@ class MyButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 10),
       child: SizedBox(
         width: double.infinity,
-        height: 50,
+        height: 70,
         child: ElevatedButton(
           onPressed: onTap,
           style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.black,
             elevation: 20,
-            textStyle: const TextStyle(fontSize: 20),
-            foregroundColor: Colors.black87,
+            foregroundColor: Colors.white,
           ),
-          child: Text(name),
+          child: Text(
+            name,
+            style: const TextStyle(fontFamily: "Roboto", fontSize: 20),
+          ),
         ),
       ),
     );

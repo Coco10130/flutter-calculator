@@ -8,11 +8,12 @@ class HomePage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.blue,
+        backgroundColor: Colors.white,
         title: const Center(
           child: Text(
             "Calculator",
-            style: TextStyle(fontSize: 26, color: Colors.black),
+            style: TextStyle(
+                fontSize: 28, color: Colors.black, fontFamily: "Roboto"),
           ),
         ),
       ),
